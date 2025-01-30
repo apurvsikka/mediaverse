@@ -1,4 +1,4 @@
-import { IExtension, ISearchResults } from "../../../lib";
+import { IExtension, ISearchResults, IMangaSearchResult } from "../../../lib";
 import BaseParser from "../BaseParser";
 
 // EXTENSION URL
@@ -8,7 +8,13 @@ abstract class AnimeParser extends BaseParser {
   // extension info
   protected abstract about: IExtension;
   // search function
-  abstract getSearch(query: string, page?: number, ...args: any): any;
+  abstract getSearch(
+    query: string,
+    page?: number,
+    ...args: any
+  ): IMangaSearchResult;
+  // top listings
+  abstract getTopManga(page: number, ...args: any): any;
 }
 
 export default AnimeParser;

@@ -64,11 +64,61 @@ export class KAKALOT extends MangaParser {
     });
     return res$;
   }
+
+  override async getTopManga(page: any = 1, ...args: any) {
+    const url = `${KAKALOT_URL}manga_list?type=topview&category=all&state=all&page=${page}`;
+    const { data } = await axios.get(url);
+    const $ = cheerio.load(data);
+    const results: any[] = [];
+
+    $(".list-truyen-item-wrap").each((index, element) => {
+      // const rank = index + 1
+      const title = $(element).find("h3 > a").text().trim();
+      const image = $(element).find(".list-story-item img").attr("src");
+      const id = $(element)
+        .find("h3 a")
+        .attr("href")
+        ?.replace("https://chapmanganato.to/", "");
+      const latestChapter = $(element)
+        .find(".list-story-item-wrap-chapter")
+        .text()
+        .trim();
+      const description = $(element)
+        .find("p")
+        .text()
+        .trim()
+        ?.replace("        More.", "...");
+
+      results.push({
+        // rank,
+        title,
+        image,
+        id,
+        latestChapter,
+        description,
+      });
+    });
+    const currentPage = parseInt(page, 10);
+    const pageLimit = 999;
+    var hasNextPage = false;
+    if (currentPage < 999) {
+      const hasNextPage = true;
+      return {
+        currentPage,
+        hasNextPage,
+        results,
+      };
+    } else if (currentPage == 999) {
+      return {
+        currentPage,
+        hasNextPage,
+        results,
+      };
+    } else {
+      return {
+        error: "item not found",
+      };
+    }
+    // return results;
+  }
 }
-
-export default KAKALOT;
-
-const kk = new KAKALOT();
-kk.getSearch("naruto").then((data) => {
-  console.log(data);
-});
