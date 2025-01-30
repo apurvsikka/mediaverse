@@ -121,4 +121,54 @@ export class KAKALOT extends MangaParser {
     }
     // return results;
   }
+  override async getRecentManga(page: any = 1, ...args: any): Promise<any> {
+    const url = `${KAKALOT_URL}manga_list?type=latest&category=all&state=all&page=${page}`;
+    const { data } = await axios.get(url);
+    const $ = cheerio.load(data);
+    const results: any[] = [];
+
+    $(".list-truyen-item-wrap").each((index, element) => {
+      const title = $(element).find("h3 > a").text().trim();
+      const image = $(element).find(".list-story-item > img").attr("src");
+      const link = $(element).find("h3 > a").attr("href");
+      const latestChapter = $(element)
+        .find(".list-story-item-wrap-chapter")
+        .text()
+        .trim();
+      const id = link?.split("/").pop(); // Extracting manga ID
+      const description = $(element).find("p").text().trim();
+
+      results.push({
+        id,
+        title,
+        image,
+        latestChapter,
+        description,
+      });
+    });
+    const currentPage = parseInt(page, 10);
+    const pageLimit = 999;
+    var hasNextPage = false;
+    if (currentPage < 999) {
+      const hasNextPage = true;
+      return {
+        currentPage,
+        hasNextPage,
+        pageLimit,
+        results,
+      };
+    } else if (currentPage == 999) {
+      // const hasNextPage = false
+      return {
+        currentPage,
+        hasNextPage,
+        pageLimit,
+        results,
+      };
+    } else {
+      return {
+        error: "page not found",
+      };
+    }
+  }
 }

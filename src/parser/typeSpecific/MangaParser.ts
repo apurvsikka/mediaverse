@@ -15,6 +15,8 @@ abstract class AnimeParser extends BaseParser {
   ): IMangaSearchResult;
   // top listings
   abstract getTopManga(page: number, ...args: any): any;
+  //recent additions
+  abstract getRecentManga(page: number, ...args: any): any;
 }
 
 export default AnimeParser;

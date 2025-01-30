@@ -17,5 +17,13 @@ test("returns a filled array of top manga", async () => {
   console.log("the following data has been inferred: ");
   const data = await kk.getTopManga();
   expect(data).not.toEqual([]);
-  await kk.getTopManga("one piece").then((data) => console.log(data));
+  await kk.getTopManga().then((data) => console.log(data));
+});
+
+test("returns a filled array of recent manga releases", async () => {
+  console.log(`running test "getTopManga()" expexting search results`);
+  console.log("the following data has been inferred: ");
+  const data = await kk.getRecentManga();
+  expect(data).not.toEqual([]);
+  await kk.getRecentManga().then((data) => console.log(data));
 });
