@@ -1,0 +1,25 @@
+{
+  "name": "mediaverse",
+  "module": "index.ts",
+  "type": "module",
+  "license": "MIT",
+  "author": "apurvsikka(Apurv)",
+  "version": "v0.0.1 beta",
+  "description": "a versatile search engine for various media types such as anime, books and drama",
+  "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/bun": "latest",
+    "@types/cheerio": "^0.22.35",
+    "@types/express": "^5.0.0",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
