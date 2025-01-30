@@ -27,3 +27,11 @@ test("returns a filled array of recent manga releases", async () => {
   expect(data).not.toEqual([]);
   await kk.getRecentManga().then((data) => console.log(data));
 });
+
+test("returns information on a given manga(by id)", async () => {
+  console.log(`running test "getTopManga()" expexting search results`);
+  console.log("the following data has been inferred: ");
+  const data = await kk.getMangaInfo("manga-cn1005496");
+  expect(data).not.toEqual([]);
+  await kk.getMangaInfo("manga-cn1005496").then((data) => console.log(data));
+});
